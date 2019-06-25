@@ -151,3 +151,28 @@ You should see the following screen:
 ```
 /usr/share/lemonldap-ng/bin/lemonldap-ng-cli help
 ```
+
+## Access to sample application
+
+LemonLDAP::NG provides a sample application that reads HTTP headers. To enable it:
+```
+a2ensite test-apache2.conf
+systemctl reload apache2
+```
+
+You can see that this is a standard Apache virtual host, the only added line it the call the LL::NG Handler:
+```
+vi /etc/apache2/sites-enabled/test-apache2.conf
+```
+```apache
+    # SSO protection
+    PerlHeaderParserHandler Lemonldap::NG::Handler::ApacheMP2
+```
+
+Access to the sample application: [http://test1.example.com].
+
+You should see the following element in the screen:
+
+![LLNG sample](images/screenshot_llng_sample.png "LemonLDAP::NG sample page")
+
+You are authenticated! If you logout from the WebSSO ([http://auth.example.com/logout]), and try to access to the sample application, you will be forced to log in.
