@@ -58,3 +58,34 @@ Log in with: fd-admin / password
 You should see the following screen:
 
 ![FD home](images/screenshot_fd_home.png "Fusion Directory home page")
+
+:exclamation: Now you are on your own. Follow the following steps and try to achieve all points!
+
+## LemonLDAP::NG installation
+
+:information_source: See also [official documentation](https://lemonldap-ng.org/documentation/latest/installdeb).
+
+Use official repository:
+```
+vi /etc/apt/sources.list.d/lemonldap-ng.list
+```
+```
+# LemonLDAP::NG repository
+deb     https://lemonldap-ng.org/deb 2.0 main
+deb-src https://lemonldap-ng.org/deb 2.0 main
+```
+
+Get GPG key:
+```
+wget -O - https://lemonldap-ng.org/_media/rpm-gpg-key-ow2 | apt-key add -
+```
+
+Update:
+```
+apt update
+```
+
+Install main package with Apache mod_perl:
+```
+apt install libapache2-mod-perl2 lemonldap-ng
+```
