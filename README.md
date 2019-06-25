@@ -129,7 +129,7 @@ Configure your local DNS or edit your local `/etc/hosts` (on your host, not on t
 VM_IP	auth.example.com manager.example.com test1.example.com test2.example.com
 ```
 
-Then open your web browser and go to [http://auth.example.com].
+Then open your web browser and go to http://auth.example.com
 
 You should see the following screen:
 
@@ -141,7 +141,7 @@ You should see the following screen:
 
 ![LLNG menu](images/screenshot_llng_menu.jpg "LemonLDAP::NG menu page")
 
-Click on WebSSO Manager to access the administration interface, or use [http://manager.example.com].
+Click on WebSSO Manager to access the administration interface, or use http://manager.example.com
 
 You should see the following screen:
 
@@ -169,10 +169,10 @@ vi /etc/apache2/sites-enabled/test-apache2.conf
     PerlHeaderParserHandler Lemonldap::NG::Handler::ApacheMP2
 ```
 
-Access to the sample application: [http://test1.example.com].
+Access to the sample application: http://test1.example.com
 
 You should see the following element in the screen:
 
 ![LLNG sample](images/screenshot_llng_sample.png "LemonLDAP::NG sample page")
 
-You are authenticated! If you logout from the WebSSO ([http://auth.example.com/logout]), and try to access to the sample application, you will be forced to log in.
+You are authenticated! If you logout from the WebSSO (http://auth.example.com/logout), and try to access to the sample application, you will be forced to log in.
