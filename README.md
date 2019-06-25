@@ -52,3 +52,9 @@ ldapvi -Y EXTERNAL -h ldapi:/// -b dc=worteks,dc=com
 You should see the following screen:
 
 ![FD login](images/screenshot_fd_login.png "Fusion Directory login page")
+
+Log in with: fd-admin / password
+
+You should see the following screen:
+
+![FD home](images/screenshot_fd_home.png "Fusion Directory home page")
