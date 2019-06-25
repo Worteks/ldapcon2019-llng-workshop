@@ -140,3 +140,14 @@ Log in with: dwho / dwho
 You should see the following screen:
 
 ![LLNG menu](images/screenshot_llng_menu.jpg "LemonLDAP::NG menu page")
+
+Click on WebSSO Manager to access the administration interface, or use [http://manager.example.com].
+
+You should see the following screen:
+
+![LLNG manager](images/screenshot_llng_manager.png "LemonLDAP::NG manager page")
+
+:information_source: Further configuration steps could be done with this graphical interface, but in this workshop we will use the Command Line Interface:
+```
+/usr/share/lemonldap-ng/bin/lemonldap-ng-cli help
+```
