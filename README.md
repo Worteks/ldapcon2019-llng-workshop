@@ -17,11 +17,18 @@ Prerequisites:
 
 Download the virtual image from this repository and import it.
 
-After starting the image, you should be able to log in with : root / password
+After starting the image, you should be able to log in on console with : root / password
+
+To log with SSH, use : worteks / password and then:
+```
+su -
+```
+
+Check which IP address was associated to your virtual machine. We will use the variable `VM_IP` in this documentation, you need to replace it by the IP of your own virtual machine.
 
 ### LDAP server
 
-OpenLDAP LTB server is already installed, you can check the service status:
+[OpenLDAP LTB](https://ltb-project.org/documentation/openldap-deb) server is already installed, you can check the service status:
 ```
 systemctl status slapd
 ```
@@ -35,3 +42,11 @@ Access to data:
 ```
 ldapvi -Y EXTERNAL -h ldapi:/// -b dc=worteks,dc=com
 ```
+
+### LDAP browser
+
+[Fusion Directory](https://www.fusiondirectory.org/) is already installed, you can access it on http://`VM_IP`/fusiondirectory/.
+
+You should see the following screen:
+
+![FD login](images/screenshot_fd_login.png "Fusion Directory login page")
