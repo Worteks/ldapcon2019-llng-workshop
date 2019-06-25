@@ -1,0 +1,27 @@
+dn: cn=default,ou=ppolicies,dc=worteks,dc=com
+objectClass: device
+objectClass: pwdPolicy
+cn: default
+pwdAttribute: userPassword
+pwdAllowUserChange: TRUE
+pwdCheckQuality: 1
+pwdFailureCountInterval: 600
+pwdLockout: TRUE
+pwdLockoutDuration: 3600
+pwdMaxFailure: 3
+pwdMinLength: 8
+pwdMustChange: TRUE
+pwdSafeModify: FALSE
+
+dn: cn=dsa,ou=ppolicies,dc=worteks,dc=com
+objectClass: device
+objectClass: pwdPolicy
+cn: dsa
+pwdAttribute: userPassword
+pwdAllowUserChange: TRUE
+pwdCheckQuality: 1
+pwdFailureCountInterval: 0
+pwdLockout: FALSE
+pwdMinLength: 8
+pwdMustChange: FALSE
+pwdSafeModify: FALSE

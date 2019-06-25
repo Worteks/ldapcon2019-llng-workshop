@@ -1,0 +1,26 @@
+dn: dc=worteks,dc=com
+objectClass: top
+objectClass: dcObject
+objectClass: organization
+dc: worteks
+o: Worteks
+
+dn: ou=dsa,dc=worteks,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: dsa
+
+dn: ou=ppolicies,dc=worteks,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: ppolicies
+
+dn: ou=users,dc=worteks,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: users
+
+dn: ou=groups,dc=worteks,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: groups

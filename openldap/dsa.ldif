@@ -1,0 +1,17 @@
+dn: cn=websso,ou=dsa,dc=worteks,dc=com
+objectClass: top
+objectClass: organizationalRole
+objectClass: simpleSecurityObject
+cn: websso
+userPassword: WebSSOPassword
+description: WebSSO
+pwdPolicySubentry: cn=dsa,ou=ppolicies,dc=worteks,dc=com
+
+dn: cn=fusiondirectory,ou=dsa,dc=worteks,dc=com
+objectClass: top
+objectClass: organizationalRole
+objectClass: simpleSecurityObject
+cn: fusiondirectory
+userPassword: FDPassword
+description: Fusion Directory
+pwdPolicySubentry: cn=dsa,ou=ppolicies,dc=worteks,dc=com
