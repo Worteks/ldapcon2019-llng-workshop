@@ -89,3 +89,54 @@ Install main package with Apache mod_perl:
 ```
 apt install libapache2-mod-perl2 lemonldap-ng
 ```
+
+:information_source: LemonLDAP::NG is of course also compatible with Nginx, but this workshop is designed to run with Apache.
+
+Install Apache FCGID module:
+```
+apt install libapache2-mod-fcgid
+```
+
+Enable modules and configurations:
+```
+a2ensite manager-apache2.conf
+a2ensite portal-apache2.conf
+a2ensite handler-apache2.conf
+a2enmod fcgid perl alias rewrite headers
+```
+
+Test configuration:
+```
+apachectl configtest
+```
+
+Restart Apache:
+```
+systemctl restart apache2
+```
+
+:information_source: We use the default domain `example.com`. It can be changed with the next command:
+```
+sed -i 's/example\.com/worteks.com/g' /etc/lemonldap-ng/* /var/lib/lemonldap-ng/conf/lmConf-1.json
+```
+
+:exclamation: If you do it, adapt the following steps to use your specific domain instead of `example.com`.
+
+## First access
+
+Configure your local DNS or edit your local `/etc/hosts` (on your host, not on the virtual machine) with:
+```
+VM_IP	auth.example.com manager.example.com test1.example.com test2.example.com
+```
+
+Then open your web browser and go to [http://auth.example.com].
+
+You should see the following screen:
+
+![LLNG login](images/screenshot_llng_login.jpg "LemonLDAP::NG login page")
+
+Log in with: dwho / dwho
+
+You should see the following screen:
+
+![LLNG menu](images/screenshot_llng_menu.jpg "LemonLDAP::NG menu page")
