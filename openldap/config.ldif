@@ -1739,8 +1739,9 @@ olcDatabase: {1}mdb
 olcDbDirectory: /usr/local/openldap/var/openldap-data
 olcSuffix: dc=worteks,dc=com
 olcAccess: {0}to * by dn.exact=gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth manage by * break
-olcAccess: {1}to attrs="userPassword" by dn.base="cn=websso,ou=dsa,dc=worteks,dc=com" write by dn.base="cn=fusiondirectory,ou=dsa,dc=worteks,dc=com" write by * auth
-olcAccess: {2}to dn.subtree="dc=worteks,dc=com" by dn.base="cn=websso,ou=dsa,dc=worteks,dc=com" write by dn.base="cn=fusiondirectory,ou=dsa,dc=worteks,dc=com" write by * none
+olcAccess: {1}to dn.exact="dc=worteks,dc=com" by users read by * break
+olcAccess: {2}to attrs="userPassword" by dn.base="cn=websso,ou=dsa,dc=worteks,dc=com" write by dn.base="cn=fusiondirectory,ou=dsa,dc=worteks,dc=com" write by * auth
+olcAccess: {3}to dn.subtree="dc=worteks,dc=com" by dn.base="cn=websso,ou=dsa,dc=worteks,dc=com" write by dn.base="cn=fusiondirectory,ou=dsa,dc=worteks,dc=com" write by * none
 olcLimits: {0}dn.subtree="ou=dsa,dc=worteks,dc=com" size=unlimited time=unlimited
 olcRootDN: cn=admin,dc=worteks,dc=com
 olcRootPW: password
