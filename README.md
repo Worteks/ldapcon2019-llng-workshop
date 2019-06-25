@@ -2,6 +2,8 @@
 
 Workshop on [LemonLDAP::NG](https://lemonldap-ng.org/) for [Pass the SALT 2019](https://2019.pass-the-salt.org/).
 
+![LL::NG logo](images/logo_llng_600px.png "LemonLDAP::NG")
+
 Goals:
 * Install LemonLDAP::NG
 * Configure authentication to OpenLDAP
