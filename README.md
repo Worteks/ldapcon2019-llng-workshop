@@ -147,7 +147,7 @@ You should see the following screen:
 
 ![LLNG manager](images/screenshot_llng_manager.png "LemonLDAP::NG manager page")
 
-:information_source: Further configuration steps could be done with this graphical interface, but in this workshop we will use the Command Line Interface:
+:information_source: Further configuration steps could be done with this graphical interface, but in this workshop we will use the [Command Line Interface](https://lemonldap-ng.org/documentation/latest/configlocation#command_line_interface_cli):
 ```
 /usr/share/lemonldap-ng/bin/lemonldap-ng-cli help
 ```
@@ -176,3 +176,38 @@ You should see the following element in the screen:
 ![LLNG sample](images/screenshot_llng_sample.png "LemonLDAP::NG sample page")
 
 You are authenticated! If you logout from the WebSSO (http://auth.example.com/logout), and try to access to the sample application, you will be forced to log in.
+
+## LDAP configuration
+
+The WebSSO is currently in [demo mode](https://lemonldap-ng.org/documentation/latest/authdemo), with built-in accounts (do you like [Doctor Who](https://en.wikipedia.org/wiki/Doctor_Who)?). Now we will configure LemonLDAP::NG to use the local LDAP directory.
+
+Use the command line to set LDAP parameters:
+```
+/usr/share/lemonldap-ng/bin/lemonldap-ng-cli -yes 1 \
+    set \
+        authentication LDAP \
+        userDB LDAP \
+        passwordDB LDAP \
+        registerDB LDAP \
+        ldapServer 'ldap://localhost' \
+        managerDn 'cn=websso,ou=dsa,dc=worteks,dc=com' \
+        managerPassword 'WebSSOPassword' \
+        ldapBase 'ou=users,dc=worteks,dc=com' \
+        ldapPpolicyControl 1
+```
+```
+/usr/share/lemonldap-ng/bin/lemonldap-ng-cli -force 1 -yes 1 \
+    addKey \
+        ldapExportedVars uid uid \
+        ldapExportedVars cn cn \
+        ldapExportedVars sn sn \
+        ldapExportedVars mail mail \
+        ldapExportedVars givenName givenName
+```
+
+To clear configuration cache, restart Apache:
+```
+systemctl restart apache2
+```
+
+Now you can connect to SSO portal with the LDAP user : fd-admin / password
