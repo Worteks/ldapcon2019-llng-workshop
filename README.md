@@ -17,7 +17,7 @@ Prerequisites:
 
 ## Virtual image and first checks
 
-Download the virtual image from this repository and import it.
+Download the virtual image [from this repository](pts2019.ova) and import it.
 
 After starting the image, you should be able to log in on console with : root / password
 
