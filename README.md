@@ -19,9 +19,15 @@ Prerequisites:
 
 Download the virtual image [from this repository](pts2019.ova) and import it.
 
-After starting the image, you should be able to log in on console with : root / password
+After starting the image, you should be able to log in on console with:
+:bust_in_silhouette: `root`
+:key: `password`
 
-To log with SSH, use : worteks / password and then:
+To log with SSH, use:
+:bust_in_silhouette: `worteks`
+:key: `password`
+
+And then:
 ```
 su -
 ```
@@ -53,7 +59,9 @@ You should see the following screen:
 
 ![FD login](images/screenshot_fd_login.png "Fusion Directory login page")
 
-Log in with: fd-admin / password
+Log in with:
+:bust_in_silhouette: `fd-admin`
+:key: `password`
 
 You should see the following screen:
 
@@ -135,7 +143,9 @@ You should see the following screen:
 
 ![LLNG login](images/screenshot_llng_login.jpg "LemonLDAP::NG login page")
 
-Log in with: dwho / dwho
+Log in with:
+:bust_in_silhouette: `dwho`
+:key: `dwho`
 
 You should see the following screen:
 
@@ -210,4 +220,6 @@ To clear configuration cache, restart Apache:
 systemctl restart apache2
 ```
 
-Now you can connect to SSO portal with the LDAP user : fd-admin / password
+Now you can connect to SSO portal with the LDAP user:
+:bust_in_silhouette: `fd-admin`
+:key: `password`
