@@ -252,3 +252,80 @@ systemctl restart apache2
 ```
 
 Now the user `fd-admin` can access the Manager.
+
+## Configure Fusion Directory in WebSSO
+
+Fusion Directory is a web application compatible with several SSO methods:
+* HTTP headers
+* CAS
+
+We will use the first method, which is how LemonLDAP::NG works by default.
+
+:information_source: LemonLDAP::NG can also be configured as Identity Provider for CAS, SAML and OpenID Connect!
+
+### Apache virtual host
+
+The first step is to create an Apache virtual host for Fusion Directory:
+```
+vi /etc/apache2/sites-available/fd.conf
+```
+```
+<VirtualHost "*:80">
+    ServerName fd.example.com
+
+    # SSO protection
+    PerlHeaderParserHandler Lemonldap::NG::Handler::ApacheMP2
+
+    # DocumentRoot
+    DocumentRoot /usr/share/fusiondirectory/html
+</VirtualHost>
+```
+
+Enable this virtual host:
+```
+a2ensite fd
+systemctl reload apache2
+```
+
+Configure your local DNS or edit your local `/etc/hosts` (on your host, not on the virtual machine) with:
+```
+VM_IP	fd.example.com
+```
+
+### Define virtual host in LL::NG
+
+If you try to access http://fd.example.com, you will be rejected. This is because the virtual host is not yet defined in LL::NG.
+
+To do it:
+```
+/usr/share/lemonldap-ng/bin/lemonldap-ng-cli -yes 1 -force 1 \
+    addKey \
+        'locationRules/fd.example.com' 'default' 'accept' \
+        'locationRules/fd.example.com' '(?#Logout)^/index\.php\?signout=1' 'logout_sso' \
+        'exportedHeaders/fd.example.com' 'Auth-User' '$uid'
+```
+
+You can see in the commande that we create a default rule to allow every authenticated user (`accept`) and we also provide a rule to catch the logout URL and disconnect users from the WebSSO (`logout_sso'). The last line set the exported header (`Auth-User`) and which session value will be set in (`$uid`).
+
+To clear configuration cache, restart Apache:
+```
+systemctl restart apache2
+```
+
+### Configure Fusion Directory
+
+Go to Fusion Directory with the new URL. You still need to authenticate as the application is not yet configured to trust the WebSSO.
+
+Go in `Configuration` menu, click on `Edit` button (bottom right). Then in `Login and Session` check `HTTP Header authentication` box and keep the value of `Header name` (`AUTH_USER`).
+
+Click on `Sign out`: you are disconnected from the WebSSO. Now go on http://fd.example.com again, you should be redirected to WebSSO login form. Authenticate, and then you are redirected back to the application, and you are already authenticated!
+
+### Disable direct access
+
+Now that you set a trust between Fusion Directory and LemonLDAP::NG, you must ensure that nobody can access the application outside the WebSSO. It is indeed very easy to forge an HTTP header, so an attacker could connect to the application with any account.
+
+Disable direct access configuration:
+```
+a2disconf fusiondirectory
+systemctl reload apache2
+```
