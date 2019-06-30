@@ -305,7 +305,7 @@ To do it:
         'exportedHeaders/fd.example.com' 'Auth-User' '$uid'
 ```
 
-You can see in the commande that we create a default rule to allow every authenticated user (`accept`) and we also provide a rule to catch the logout URL and disconnect users from the WebSSO (`logout_sso'). The last line set the exported header (`Auth-User`) and which session value will be set in (`$uid`).
+You can see in the command that we create a default rule to allow every authenticated user (`accept`) and we also provide a rule to catch the logout URL and disconnect users from the WebSSO (`logout_sso'). The last line set the exported header (`Auth-User`) and which session value will be set in (`$uid`).
 
 To clear configuration cache, restart Apache:
 ```
@@ -329,3 +329,37 @@ Disable direct access configuration:
 a2disconf fusiondirectory
 systemctl reload apache2
 ```
+
+### Add application in menu
+
+This step is not mandatory, but will allow to see the application inside the menu.
+
+First, check which categories are defined:
+```
+/usr/share/lemonldap-ng/bin/lemonldap-ng-cli get applicationList
+```
+```
+applicationList has the following keys:
+   1sample
+   2administration
+   3documentation
+```
+
+We will create the application in the `1sample` category:
+```
+/usr/share/lemonldap-ng/bin/lemonldap-ng-cli -yes 1 -force 1 \
+    addKey \
+        applicationList/1sample/fd type application \
+        applicationList/1sample/fd/options description "LDAP administration" \
+        applicationList/1sample/fd/options display "auto" \
+        applicationList/1sample/fd/options logo "tux.png" \
+        applicationList/1sample/fd/options name "Fusion Directory" \
+        applicationList/1sample/fd/options uri "http://fd.example.com/"
+```
+
+To clear configuration cache, restart Apache:
+```
+systemctl restart apache2
+```
+
+No the application should appear in the menu.
