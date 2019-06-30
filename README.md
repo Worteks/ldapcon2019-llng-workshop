@@ -223,3 +223,32 @@ systemctl restart apache2
 Now you can connect to SSO portal with the LDAP user:
 :bust_in_silhouette: `fd-admin`
 :key: `password`
+
+As you can see, access to Manager is not granted anymore. Indeed, this access was configured for user `dwho` and you are not this one anymore!
+
+To restore access to Manager, two options:
+1. Remove Manager protection in `/etc/lemonldap-ng/lemonldap-ng.ini` (search `[manager]` section and `protection` parameter)
+2. Modify access rules
+
+For the second solution, first remove unused rules:
+```
+/usr/share/lemonldap-ng/bin/lemonldap-ng-cli -force 1 -yes 1 \
+    delKey \
+        locationRules/manager.example.com '(?#Configuration)^/(manager\.html|confs|$)' \
+        locationRules/manager.example.com '(?#Notifications)/notifications' \
+        locationRules/manager.example.com '(?#Sessions)/sessions'
+```
+
+Then change default rule:
+```
+/usr/share/lemonldap-ng/bin/lemonldap-ng-cli -force 1 -yes 1 \
+    addKey \
+        locationRules/manager.example.com default '$uid =~ /^fd-admin$/'
+```
+
+To clear configuration cache, restart Apache:
+```
+systemctl restart apache2
+```
+
+Now the user `fd-admin` can access the Manager.
