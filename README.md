@@ -363,3 +363,13 @@ systemctl restart apache2
 ```
 
 No the application should appear in the menu.
+
+## New account
+
+We can now create a new account. With Fusion Directory, fo in `Users`, then `Actions` > `Create` > `User`.
+
+Fill the information, at least first name, last name, login and password:
+
+![FD new user](images/screenshot_fd_newuser.png "Fusion Directory create a new user page")
+
+Save and log out. You should now be able to log with this account. It has the default rights: no access to WebSSO Manager but access to other applications.
