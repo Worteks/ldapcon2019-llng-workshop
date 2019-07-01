@@ -437,3 +437,22 @@ Go back to portal and log out. Then log in again with your account, the second f
 ![LLNG 2FA](images/screenshot_llng_2farequired.jpg "LemonLDAP::NG 2ndFA Required")
 
 Enter the code and submit, you should now be authenticated!
+
+## Use authentication level to protect an application
+
+You can create a new user in LDAP and connect with him, but without registering a 2FA. He will have the default authentication level.
+
+To request at least level 4 for application "test2.example.com", do the following:
+
+```
+/usr/share/lemonldap-ng/bin/lemonldap-ng-cli -yes 1 -force 1 \
+    addKey \
+        vhostOptions/test2.example.com vhostAuthnLevel 4
+```
+
+To clear configuration cache, restart Apache:
+```
+systemctl restart apache2
+```
+
+Now connect with the user without 2FA: application test2 is not authorized. If you connect with the user having 2FA, the application is authorized.
