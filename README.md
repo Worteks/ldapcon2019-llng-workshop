@@ -14,6 +14,7 @@ Prerequisites:
 * Virtualization system (like VirtualBox)
 * Possibility to edit hosts file or a local DNS system
 * Internet access
+* Mobile phone with TOTP application (for example FreeOTP)
 
 ## Virtual image and first checks
 
@@ -373,3 +374,66 @@ Fill the information, at least first name, last name, login and password:
 ![FD new user](images/screenshot_fd_newuser.png "Fusion Directory create a new user page")
 
 Save and log out. You should now be able to log with this account. It has the default rights: no access to WebSSO Manager but access to other applications.
+
+## Second Factor Authentication (2FA)
+
+:information_source: See also [official documentation](https://lemonldap-ng.org/documentation/latest/totp2f).
+
+For the workshop, we will set up a TOTP second factor. You will need a mobile phone with a TOTP application, like [FreeOTP](https://freeotp.github.io/).
+
+First, install required dependencies:
+```
+apt install libdigest-hmac-perl
+```
+
+Here are the configuration settings we will use:
+* Self registration: enabled (users can register their 2FA)
+* Authentication level: 5 (at least higher than the LDAP authentication level)
+* Issuer: PTS 2019 (or any name that you want to be displayed on user application)
+* Interval: 30 (this is the default)
+* Range: 1 (this is the default)
+* Digits: 6 (this is the default)
+* Display existing secret: enabled (users can see their own 2FA)
+* Change existing secret: enabled (users can change their 2FA)
+* Delete TOTP: enabled (users can remove their 2FA)
+* Lifetime: unlimited
+
+Apply these settings:
+```
+/usr/share/lemonldap-ng/bin/lemonldap-ng-cli -yes 1 -force 1 \
+    set \
+        totp2fActivation 1 \
+        totp2fSelfRegistration 1 \
+        totp2fAuthnLevel 5 \
+        totp2fIssuer "PTS 2019" \
+        totp2fInterval 30 \
+        totp2fRange 1 \
+        totp2fDigits 6 \
+        totp2fDisplayExistingSecret 1 \
+        totp2fUserCanChangeKey 1 \
+        totp2fUserCanRemoveKey 1 \
+        totp2fTTL 0
+```
+
+To clear configuration cache, restart Apache:
+```
+systemctl restart apache2
+```
+
+Now connect with your account on WebSSO portal and go to 2ndFA Manager:
+
+![LLNG 2FA](images/screenshot_llng_2famanager.jpg "LemonLDAP::NG 2ndFA Manager")
+
+Choose your second factor (only TOTP should be available):
+
+![LLNG 2FA](images/screenshot_llng_2fachoice.jpg "LemonLDAP::NG 2ndFA Choice")
+
+Now take your phone, open your OTP application and scan the QR-code. You can now generate an OTP from your application. Enter this OTP on WebSSO page to regsiter your device:
+
+![LLNG 2FA](images/screenshot_llng_2faregister.jpg "LemonLDAP::NG 2ndFA Register")
+
+Go back to portal and log out. Then log in again with your account, the second factor is required:
+
+![LLNG 2FA](images/screenshot_llng_2farequired.jpg "LemonLDAP::NG 2ndFA Required")
+
+Enter the code and submit, you should now be authenticated!
