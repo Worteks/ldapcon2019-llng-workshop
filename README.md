@@ -12,28 +12,27 @@ Goals:
 
 Prerequisites:
 * Virtualization system (like VirtualBox)
-* Possibility to edit hosts file or a local DNS system
-* Internet access
+* Internet access from your Virtual Machine (for packages installation)
 * Mobile phone with TOTP application (for example FreeOTP)
 
 ## Virtual image and first checks
 
 Download the virtual image [from this repository](pts2019.ova) and import it.
 
-After starting the image, you should be able to log in on console with:
-:bust_in_silhouette: `root`
-:key: `password`
-
-To log with SSH, use:
+After starting the image, you should be able to log in on graphcal inteface with:
 :bust_in_silhouette: `worteks`
 :key: `password`
 
-And then:
+And then open a console (`CTRL+F2` `konsole`)
 ```
 su -
 ```
 
-Check which IP address was associated to your virtual machine. We will use the variable `VM_IP` in this documentation, you need to replace it by the IP of your own virtual machine.
+The root password is :key: `password`
+
+:information_source: For practical reasons we will use a browser on local machine to access applications. If you can access your Virtual Machine from your host, you will also be able to use your own browser. In this case, edit your `/etc/hosts` file to map URLs to the IP of your Virtual Machine.
+
+:exclamation: All commands in this documentation must be run as `root` in the console.
 
 ### LDAP server
 
@@ -54,7 +53,7 @@ ldapvi -Y EXTERNAL -h ldapi:/// -b dc=worteks,dc=com
 
 ### LDAP browser
 
-[Fusion Directory](https://www.fusiondirectory.org/) is already installed, you can access it on http://`VM_IP`/fusiondirectory/.
+[Fusion Directory](https://www.fusiondirectory.org/) is already installed, you can access it on http://localhost/fusiondirectory/
 
 You should see the following screen:
 
@@ -135,10 +134,10 @@ sed -i 's/example\.com/worteks.com/g' /etc/lemonldap-ng/* /var/lib/lemonldap-ng/
 
 Configure your local DNS or edit your local `/etc/hosts` (on your host, not on the virtual machine) with:
 ```
-VM_IP	auth.example.com manager.example.com test1.example.com test2.example.com
+127.0.0.1	auth.example.com manager.example.com test1.example.com test2.example.com
 ```
 
-Then open your web browser and go to http://auth.example.com
+Then open the web browser and go to http://auth.example.com
 
 You should see the following screen:
 
@@ -290,7 +289,7 @@ systemctl reload apache2
 
 Configure your local DNS or edit your local `/etc/hosts` (on your host, not on the virtual machine) with:
 ```
-VM_IP	fd.example.com
+127.0.0.1	fd.example.com
 ```
 
 ### Define virtual host in LL::NG
