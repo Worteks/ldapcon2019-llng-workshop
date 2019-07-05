@@ -17,7 +17,7 @@ Prerequisites:
 
 ## Virtual image and first checks
 
-Download the virtual image and import it.
+Download the virtual image from [Worteks CDN](https://cdn.apps.wopla.io/llng/pts2019.ova) and import it.
 
 After starting the image, you should be able to log in on graphcal inteface with:
 :bust_in_silhouette: `worteks`
