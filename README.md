@@ -13,7 +13,7 @@ Goals:
 Prerequisites:
 * Virtualization system (like VirtualBox)
 * Internet access from your Virtual Machine (for packages installation)
-* Mobile phone with TOTP application (for example FreeOTP)
+* Mobile phone with TOTP application (for example [FreeOTP+](https://f-droid.org/en/packages/org.liberty.android.freeotpplus/))
 
 ## Virtual image and first checks
 
