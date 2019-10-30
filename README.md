@@ -1,6 +1,6 @@
 # LemonLDAP::NG Workshop
 
-Workshop on [LemonLDAP::NG](https://lemonldap-ng.org/) for [Pass the SALT 2019](https://2019.pass-the-salt.org/).
+Workshop on [LemonLDAP::NG](https://lemonldap-ng.org/) for [LDAPCon 2019](https://ldapcon.org/2019/).
 
 ![LL::NG logo](images/logo_llng_600px.png "LemonLDAP::NG")
 
