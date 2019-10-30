@@ -23,7 +23,7 @@ After starting the image, you should be able to log in on graphcal inteface with
 :bust_in_silhouette: `worteks`
 :key: `password`
 
-And then open a console (`CTRL+F2` `konsole`)
+And then open a console (`ALT+F2` `konsole`)
 ```
 su -
 ```
@@ -111,6 +111,11 @@ a2ensite manager-apache2.conf
 a2ensite portal-apache2.conf
 a2ensite handler-apache2.conf
 a2enmod fcgid perl alias rewrite headers
+```
+
+Configure LL::NG to check configuration every second (avoid to force a restart at each configuration modification):
+```
+sed -i 's/;checkTime =.*/checkTime = 1/' /etc/lemonldap-ng/lemonldap-ng.ini
 ```
 
 Test configuration:
