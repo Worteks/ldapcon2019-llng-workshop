@@ -293,19 +293,15 @@ If you try to access http://fd.example.com, you will be rejected. This is becaus
 
 To do it:
 ```
-/usr/share/lemonldap-ng/bin/lemonldap-ng-cli -yes 1 -force 1 \
+/usr/share/lemonldap-ng/bin/lemonldap-ng-cli -yes 1 \
     addKey \
         'locationRules/fd.example.com' 'default' 'accept' \
         'locationRules/fd.example.com' '(?#Logout)^/index\.php\?signout=1' 'logout_sso' \
         'exportedHeaders/fd.example.com' 'Auth-User' '$uid'
 ```
 
-You can see in the command that we create a default rule to allow every authenticated user (`accept`) and we also provide a rule to catch the logout URL and disconnect users from the WebSSO (`logout_sso'). The last line set the exported header (`Auth-User`) and which session value will be set in (`$uid`).
+You can see in the command that we create a default rule to allow every authenticated user (`accept`) and we also provide a rule to catch the logout URL and disconnect users from the WebSSO (`logout_sso`). The last line set the exported header (`Auth-User`) and which session value will be set in (`$uid`).
 
-To clear configuration cache, restart Apache:
-```
-systemctl restart apache2
-```
 
 ### Configure Fusion Directory
 
@@ -342,7 +338,7 @@ applicationList has the following keys:
 
 We will create the application in the `1sample` category:
 ```
-/usr/share/lemonldap-ng/bin/lemonldap-ng-cli -yes 1 -force 1 \
+/usr/share/lemonldap-ng/bin/lemonldap-ng-cli -yes 1 \
     addKey \
         applicationList/1sample/fd type application \
         applicationList/1sample/fd/options description "LDAP administration" \
@@ -350,11 +346,6 @@ We will create the application in the `1sample` category:
         applicationList/1sample/fd/options logo "tux.png" \
         applicationList/1sample/fd/options name "Fusion Directory" \
         applicationList/1sample/fd/options uri "http://fd.example.com/"
-```
-
-To clear configuration cache, restart Apache:
-```
-systemctl restart apache2
 ```
 
 No the application should appear in the menu.
@@ -394,7 +385,7 @@ Here are the configuration settings we will use:
 
 Apply these settings:
 ```
-/usr/share/lemonldap-ng/bin/lemonldap-ng-cli -yes 1 -force 1 \
+/usr/share/lemonldap-ng/bin/lemonldap-ng-cli -yes 1 \
     set \
         totp2fActivation 1 \
         totp2fSelfRegistration 1 \
@@ -407,11 +398,6 @@ Apply these settings:
         totp2fUserCanChangeKey 1 \
         totp2fUserCanRemoveKey 1 \
         totp2fTTL 0
-```
-
-To clear configuration cache, restart Apache:
-```
-systemctl restart apache2
 ```
 
 Now connect with your account on WebSSO portal and go to 2ndFA Manager:
@@ -439,7 +425,7 @@ You can create a new user in LDAP and connect with him, but without registering 
 To request at least level 4 for application "test2.example.com", do the following:
 
 ```
-/usr/share/lemonldap-ng/bin/lemonldap-ng-cli -yes 1 -force 1 \
+/usr/share/lemonldap-ng/bin/lemonldap-ng-cli -yes 1 \
     addKey \
         vhostOptions/test2.example.com vhostAuthnLevel 4
 ```
