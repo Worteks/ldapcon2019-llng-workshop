@@ -418,6 +418,8 @@ Go back to portal and log out. Then log in again with your account, the second f
 
 Enter the code and submit, you should now be authenticated!
 
+:information_source: If you connect with `fd-admin` account again, you can access to Manager and click an Second Factor tab. You should see a session for the user. As administrator, you can reset the 2FA so the user will be able to connect without it and register a new one.
+
 ## Use authentication level to protect an application
 
 You can create a new user in LDAP and connect with him, but without registering a 2FA. He will have the default authentication level.
