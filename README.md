@@ -364,7 +364,7 @@ Save and log out. You should now be able to log with this account. It has the de
 
 :information_source: See also [official documentation](https://lemonldap-ng.org/documentation/latest/totp2f).
 
-For the workshop, we will set up a TOTP second factor. You will need a mobile phone with a TOTP application, like [FreeOTP](https://freeotp.github.io/).
+For the workshop, we will set up a TOTP second factor. You will need a mobile phone with a TOTP application, like [FreeOTP+](https://f-droid.org/en/packages/org.liberty.android.freeotpplus/).
 
 First, install required dependencies:
 ```
