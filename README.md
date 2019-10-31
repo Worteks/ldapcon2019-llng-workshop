@@ -512,3 +512,13 @@ systemctl reload apache2
 ```
 
 :information_source: See also [official documentation](https://lemonldap-ng.org/documentation/latest/applications/dokuwiki).
+
+## To go further
+
+You now have a working SSO system with several applications configured. LemonLDAP::NG has a lot of features than you can test, for example:
+* LDAP password policy
+* LDAP group recursive search
+* CAS, SAML, OpenID Connect provider
+* Complex access rules based on LDAP attributes, groups and environment variables
+
+Browse [the online configuration](https://lemonldap-ng.org/documentation/latest/start) to know more!
