@@ -433,3 +433,82 @@ To request at least level 4 for application "test2.example.com", do the followin
 ```
 
 Now connect with the user without 2FA: application test2 is not authorized. If you connect with the user having 2FA, the application is authorized.
+
+## Dokuwiki
+
+To go further, we can apply what we learn to install Dokuwik and integrate it in LemonLDAP::NG.
+
+First install it:
+```
+apt install dokuwiki
+```
+
+You can access the application on http://localhost/dokuwiki/ and log in with the admin password you registered during installation process.
+
+To allow configuration trough Dokuwiki interface, we will adapt some rights on file system. This is not mandatory if you prefer ton configure Dokuwiki only from the console.
+```
+chown -R www-data:www-data /etc/dokuwiki
+chown -R www-data:www-data /var/lib/dokuwiki/lib/plugins
+```
+
+We will apply the same steps with Dokuwiki than the ones used to configure SSO on Fusion Directory.
+
+First create the virtual host:
+```
+vi /etc/apache2/sites-available/dokuwiki.conf
+```
+```apache
+<VirtualHost "*:80">
+    ServerName dokuwiki.example.com
+
+    # SSO protection
+    PerlHeaderParserHandler Lemonldap::NG::Handler::ApacheMP2
+
+    # DocumentRoot
+    DocumentRoot /usr/share/dokuwiki
+
+    <Directory /usr/share/dokuwiki/bin>
+        Require all denied
+    </Directory>
+
+    <Directory /var/lib/dokuwiki/data>
+        Require all denied
+    </Directory>
+
+</VirtualHost>
+```
+
+Enable this virtual host:
+```
+a2ensite dokuwiki
+systemctl reload apache2
+```
+
+Configure your local DNS or edit your local `/etc/hosts` (on your host, not on the virtual machine) with:
+```
+127.0.0.1	dokuwiki.example.com
+```
+
+Declare the application in LemonLDAP::NG:
+```
+/usr/share/lemonldap-ng/bin/lemonldap-ng-cli -yes 1 \
+    addKey \
+        'locationRules/dokuwiki.example.com' 'default' 'accept' \
+        'exportedHeaders/dokuwiki.example.com' 'Auth-User' '$uid' \
+        'exportedHeaders/dokuwiki.example.com' 'Auth-Cn'   '$cn' \
+        'exportedHeaders/dokuwiki.example.com' 'Auth-Mail' '$mail'
+```
+
+From Dokuwiki interface, connected as admin, go in administration menu:
+* In extension manager, search for `lemonldap` and install the plugin
+* In configuration settings, change the authentication backend to `lemonldap`
+
+You will then be logged out by dokuwiki. Log in now on http://dokuwiki.example.com with your standard user, you should be logged in with your identifier and name. 
+
+You can now disable old apache configuration:
+```
+a2disconf dokuwiki
+systemctl reload apache2
+```
+
+:information_source: See also [official documentation](https://lemonldap-ng.org/documentation/latest/applications/dokuwiki).
