@@ -264,7 +264,7 @@ The first step is to create an Apache virtual host for Fusion Directory:
 ```
 vi /etc/apache2/sites-available/fd.conf
 ```
-```
+```apache
 <VirtualHost "*:80">
     ServerName fd.example.com
 
