@@ -374,7 +374,7 @@ apt install libdigest-hmac-perl
 Here are the configuration settings we will use:
 * Self registration: enabled (users can register their 2FA)
 * Authentication level: 5 (at least higher than the LDAP authentication level)
-* Issuer: PTS 2019 (or any name that you want to be displayed on user application)
+* Issuer: Workshop LL::NG (or any name that you want to be displayed on user application)
 * Interval: 30 (this is the default)
 * Range: 1 (this is the default)
 * Digits: 6 (this is the default)
@@ -390,7 +390,7 @@ Apply these settings:
         totp2fActivation 1 \
         totp2fSelfRegistration 1 \
         totp2fAuthnLevel 5 \
-        totp2fIssuer "PTS 2019" \
+        totp2fIssuer "Workshop LL::NG" \
         totp2fInterval 30 \
         totp2fRange 1 \
         totp2fDigits 6 \
