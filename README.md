@@ -51,6 +51,28 @@ Access to data:
 ldapvi -Y EXTERNAL -h ldapi:/// -b dc=worteks,dc=com
 ```
 
+Some specific commands are available with slapd CLI script provided by LTB packages.
+
+Extended status:
+```
+slapd-cli status
+```
+
+Data and configuration backup:
+```
+chown -R ldap:ldap /var/backups/openldap
+slapd-cli backup
+slapd-cli backupconfig
+```
+
+Restore commands will use the most recent backup files:
+```
+slapd-cli restore
+slapd-cli restoreconfig
+```
+
+:information_source: More information on https://ltb-project.org/documentation/openldap-initscript
+
 ### LDAP browser
 
 [Fusion Directory](https://www.fusiondirectory.org/) is already installed, you can access it on http://localhost/fusiondirectory/
