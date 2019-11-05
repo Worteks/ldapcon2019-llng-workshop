@@ -23,6 +23,8 @@ After starting the image, you should be able to log in on graphcal inteface with
 :bust_in_silhouette: `worteks`
 :key: `password`
 
+:exclamation: the keyboard layout is in english by default, so try `pqsszord` if you are login with another layout. Once logged into graphical session, you can change the keyboard layout from task bar.
+
 And then open a console (`ALT+F2` `konsole`)
 ```
 su -
