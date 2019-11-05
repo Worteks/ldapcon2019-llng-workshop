@@ -150,12 +150,7 @@ Restart Apache:
 systemctl restart apache2
 ```
 
-:information_source: We use the default domain `example.com`. It can be changed with the next command:
-```
-sed -i 's/example\.com/worteks.com/g' /etc/lemonldap-ng/* /var/lib/lemonldap-ng/conf/lmConf-1.json
-```
-
-:exclamation: If you do it, adapt the following steps to use your specific domain instead of `example.com`.
+:information_source: We use the default domain `example.com`. LemonLDAP::NG can be of course configured on other domain, but this beyond the scope of this workshop.
 
 ## First access
 
